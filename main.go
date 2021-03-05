@@ -50,6 +50,15 @@ func main() {
 	fmt.Println(time.Since(time.Date(2021,3,4,20,21,3,0,time.UTC)).Hours())
 	fmt.Println(wordper)
 	fmt.Println(timeremaining(wordper)/60)
+	rem, err := time.ParseDuration(fmt.Sprintf("%f", timeremaining(wordper)) + "m")
 
+	if err != nil {
+		log.Fatalf("parseDuration %s", err)
+	}
+	loc, err := time.LoadLocation("America/New_York")
+	if err != nil {
+		log.Fatalf("loading location %s",err)
+	}
+	fmt.Println(time.Now().Add(rem).In(loc))
 	//fmt.Println(timeremaining())
 }
